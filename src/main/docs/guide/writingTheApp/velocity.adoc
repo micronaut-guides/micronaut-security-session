@@ -1,0 +1,43 @@
+By default, Micronaut's controllers produce JSON. Usually, you consume those endpoints with a mobile phone
+application or a Javascript front end (Angular, React, Vue.js ...). However, to keep this guide simple we are
+going to produce HTML in our controllers.
+
+In order to do that, we use http://velocity.apache.org[Apache Velocity].
+____
+Velocity is a Java-based template engine. It permits anyone to use a simple yet powerful template language to reference objects defined in Java code.
+____
+
+Add a dependency to velocity:
+
+[source,groovy]
+.build.gradle
+----
+dependencies {
+...
+..
+.
+include::{sourceDir}/build.gradle[tag=velocity]
+}
+----
+
+Create two velocity templates:
+
+[source,groovy]
+.src/main/resources/templates/home.vm
+----
+include::{sourceDir}/src/main/resources/templates/home.vm[]
+----
+
+[source,groovy]
+.src/main/resources/templates/auth.vm
+----
+include::{sourceDir}/src/main/resources/templates/auth.vm[]
+----
+
+To render those templates, create `VelocityService.java`
+
+[source,groovy]
+.src/main/java/demo/services/VelocityService.java
+----
+include::{sourceDir}/src/main/java/demo/services/VelocityService.java[]
+----

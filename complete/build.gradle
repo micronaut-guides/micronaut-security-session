@@ -1,0 +1,84 @@
+buildscript {
+    repositories {
+        mavenCentral()
+        //tag::buildscriptRepositories[]
+        maven { url "https://plugins.gradle.org/m2/" }
+        //end::buildscriptRepositories[]
+    }
+    dependencies {
+        classpath "io.spring.gradle:dependency-management-plugin:1.0.5.RELEASE"
+        //tag::buildscriptDependenciesWebdriverBinaries[]
+        classpath "gradle.plugin.com.energizedwork.webdriver-binaries:webdriver-binaries-gradle-plugin:1.4"
+        //end::buildscriptDependenciesWebdriverBinaries[]
+
+    }
+}
+
+version "0.1"
+group "demo"
+
+apply plugin:"io.spring.dependency-management"
+apply plugin:"application"
+//tag::applyPluginGroovy[]
+apply plugin:"groovy"
+//end::applyPluginGroovy[]
+//tag::applyPluginWebdriverBinaries[]
+apply plugin:"com.energizedwork.webdriver-binaries"
+//end::applyPluginWebdriverBinaries[]
+
+mainClassName = "demo.Application"
+
+repositories {
+    mavenLocal()
+    mavenCentral()
+    maven { url "https://repo.micronaut.io/artifactory" }
+}
+
+dependencyManagement {
+    imports {
+        mavenBom 'io.micronaut:bom:1.0.0-SNAPSHOT'
+    }
+}
+
+dependencies {
+    compile "io.micronaut:http-server-netty"
+    compile "io.micronaut:inject"
+    compileOnly "io.micronaut:inject-java"
+    runtime "ch.qos.logback:logback-classic:1.2.3"
+//tag::securitydependency[]
+    compile "io.micronaut:security-session:$micronautVersion"
+//end::securitydependency[]
+//tag::velocity[]
+    compile "org.apache.velocity:velocity-engine-core:2.0"
+//end::velocity[]
+//tag::geb[]
+    testCompile "org.gebish:geb-spock:2.1"
+    testRuntime "org.seleniumhq.selenium:selenium-chrome-driver:3.6.0"
+    testRuntime "org.seleniumhq.selenium:selenium-firefox-driver:3.6.0"
+    testCompile "org.seleniumhq.selenium:selenium-support:3.6.0"
+    testCompile "org.seleniumhq.selenium:selenium-api:3.6.0"
+//end::geb[]
+//tag::spock[]
+    compile "org.codehaus.groovy:groovy-all:2.4.15"
+    testCompile "org.spockframework:spock-core:1.1-groovy-2.4"
+//end::spock[]
+//tag::yaml[]
+    runtime 'org.yaml:snakeyaml:1.19'
+//end::yaml[]
+}
+
+//tag::webdriverBinaries[]
+webdriverBinaries {
+    chromedriver '2.38'
+    geckodriver '0.20.1'
+}
+//end::webdriverBinaries[]
+
+
+//tag::taskWithTypeTest[]
+tasks.withType(Test) {
+    systemProperty "geb.env", System.getProperty('geb.env')
+        systemProperty "webdriver.chrome.driver", System.getProperty('webdriver.chrome.driver')
+    systemProperty "webdriver.gecko.driver", System.getProperty('webdriver.gecko.driver')
+}
+//end::taskWithTypeTest[]

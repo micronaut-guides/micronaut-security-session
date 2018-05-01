@@ -1,0 +1,10 @@
+micronaut:
+  security:
+    enabled: true # <1>
+    endpoints:
+      login: true # <2>
+      logout: true # <3>
+    session:
+      enabled: true # <4>
+      loginSuccessTargetUrl: / # <5>
+      loginFailureTargetUrl: /login/authFailed #<6>

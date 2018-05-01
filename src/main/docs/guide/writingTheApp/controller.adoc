@@ -1,0 +1,28 @@
+Create a file named `HomeController` which resolves the base URL `/`:
+
+[source,groovy]
+.src/main/java/demo/controllers/HomeController.java
+----
+include::{sourceDir}/src/main/java/demo/controllers/HomeController.java[]
+----
+
+<1> Annotate with `io.micronaut.security.Secured` to configure security access. Use `isAnonymous()` expression for anonymous access.
+<2> Annotate with `io.micronaut.http.annotation.Controller` to designate a class as a Micronaut's controller.
+<3> `VelocityService` is injected via constructor injection.
+<4> By default a controller's action produces JSON, however you can define its produces HTML with `io.micronaut.http.annotation.Produces` annotation.
+<5> You can specify the HTTP verb for which a controller's action responds to. To respond to a GET request, use `io.micronaut.http.annotation.Get``
+<6> If you are authenticated, you can use the `java.security.Principal` as a parameter type. For parameters which maybe null, use `javax.annotation.Nullable`.
+
+[source,groovy]
+.src/main/java/demo/controllers/LoginAuthController.java
+----
+include::{sourceDir}/src/main/java/demo/controllers/LoginAuthController.java[]
+----
+
+<1> Annotate with `io.micronaut.security.Secured` to configure security access. Use `isAnonymous()` expression for anonymous access.
+<2> Annotate with `io.micronaut.http.annotation.Controller` to designate a class as a Micronaut's controller.
+<3> `VelocityService` is injected via constructor injection.
+<4> By default a controller's action produces JSON, however you can define its produces HTML with `io.micronaut.http.annotation.Produces` annotation.
+<5> responds to GET requests at `/login/auth`
+<6> Render velocity template `auth.vm`
+<7> responds to GET requests at `/login/authFailed`
