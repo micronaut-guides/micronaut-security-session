@@ -1,4 +1,6 @@
 micronaut:
+  server:
+    port: 8080
   security:
     enabled: true # <1>
     endpoints:
