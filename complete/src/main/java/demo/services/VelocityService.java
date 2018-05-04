@@ -10,12 +10,12 @@ import java.nio.charset.StandardCharsets;
 import java.util.Map;
 import java.util.Properties;
 
-@Singleton
+@Singleton // <1>
 public class VelocityService {
 
     private VelocityEngine velocityEngine;
 
-    @PostConstruct
+    @PostConstruct // <2>
     void initialize() {
         final Properties p = new Properties();
         p.setProperty("resource.loader", "class");

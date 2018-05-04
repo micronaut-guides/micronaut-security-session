@@ -25,47 +25,47 @@ class SessionAuthenticationSpec extends GebSpec {
         when:
         HomePage homePage = browser.page HomePage
 
-        then:
+        then: 'As we are not logged in, there is no username'
         homePage.username() == null
 
-        when:
+        when: 'click the login link'
         homePage.login()
 
         then:
         at LoginPage
 
-        when:
+        when: 'fill the login form, with invalid credentials'
         LoginPage loginPage = browser.page LoginPage
         loginPage.login('foo', 'foo')
 
-        then:
+        then: 'the user is still in the login form'
         at LoginPage
 
-        and:
+        and: 'and error is displayed'
         loginPage.hasErrors()
 
-        when:
+        when: 'fill the form with valid credentials'
         loginPage.login('sherlock', 'password')
 
-        then:
+        then: 'we get redirected to the home page'
         at HomePage
 
         when:
         homePage = browser.page HomePage
 
-        then:
+        then: 'the username is populated'
         homePage.username() == 'sherlock'
 
-        when:
+        when: 'click the logout button'
         homePage.logout()
 
-        then:
+        then: 'we are in the home page'
         at HomePage
 
         when:
         homePage = browser.page HomePage
 
-        then:
+        then: 'but we are no longer logged in'
         homePage.username() == null
     }
 }

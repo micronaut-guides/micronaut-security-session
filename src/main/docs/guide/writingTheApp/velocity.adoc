@@ -41,3 +41,6 @@ To render those templates, create `VelocityService.java`
 ----
 include::{sourceDir}/src/main/java/demo/services/VelocityService.java[]
 ----
+
+<1> To create a Sigleton bean use the `javax.inject.Singleton` annotation.
+<2> Use the `javax.annotation.PostConstruct` annotation to trigger the method execution after dependency injection is done. Typically to perform any initialization.

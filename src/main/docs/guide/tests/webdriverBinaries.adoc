@@ -6,10 +6,10 @@ a plugin that downloads and caches WebDriver binaries specific to the OS the bui
 ----
 buildscript {
     repositories {
-        include::{sourceDir}/build.gradle[tag=buildscriptRepositories]
+include::{sourceDir}/build.gradle[tag=buildscriptRepositories]
     }
     dependencies {
-        include::{sourceDir}/build.gradle[tag=buildscriptDependenciesWebdriverBinaries]
+include::{sourceDir}/build.gradle[tag=buildscriptDependenciesWebdriverBinaries]
     }
 }
 
