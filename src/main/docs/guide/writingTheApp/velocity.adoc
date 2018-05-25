@@ -36,10 +36,10 @@ include::{sourceDir}/src/main/resources/templates/auth.vm[]
 
 To render those templates, create `VelocityService.java`
 
-[source,groovy]
-.src/main/java/demo/services/VelocityService.java
+[source,java]
+.src/main/java/example/micronaut/services/VelocityService.java
 ----
-include::{sourceDir}/src/main/java/demo/services/VelocityService.java[]
+include::{sourceDir}/src/main/java/example/micronaut/services/VelocityService.java[]
 ----
 
 <1> To create a Sigleton bean use the `javax.inject.Singleton` annotation.

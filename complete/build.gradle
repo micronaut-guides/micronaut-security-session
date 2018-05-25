@@ -1,23 +1,23 @@
 buildscript {
     repositories {
         mavenCentral()
-        //tag::buildscriptRepositories[]
         maven { url "https://plugins.gradle.org/m2/" }
-        //end::buildscriptRepositories[]
     }
     dependencies {
+        classpath "com.github.jengelman.gradle.plugins:shadow:2.0.4"
         classpath "io.spring.gradle:dependency-management-plugin:1.0.5.RELEASE"
+        classpath "net.ltgt.gradle:gradle-apt-plugin:0.15"
         //tag::buildscriptDependenciesWebdriverBinaries[]
         classpath "gradle.plugin.com.energizedwork.webdriver-binaries:webdriver-binaries-gradle-plugin:1.4"
         //end::buildscriptDependenciesWebdriverBinaries[]
-
     }
 }
 
 version "0.1"
-group "demo"
+group "example"
 
 apply plugin:"io.spring.dependency-management"
+apply plugin:"com.github.johnrengelman.shadow"
 apply plugin:"application"
 //tag::applyPluginGroovy[]
 apply plugin:"groovy"
@@ -25,13 +25,14 @@ apply plugin:"groovy"
 //tag::applyPluginWebdriverBinaries[]
 apply plugin:"com.energizedwork.webdriver-binaries"
 //end::applyPluginWebdriverBinaries[]
+apply plugin:"net.ltgt.apt-eclipse"
+apply plugin:"net.ltgt.apt-idea"
 
-mainClassName = "demo.Application"
 
 repositories {
     mavenLocal()
     mavenCentral()
-    maven { url "https://repo.micronaut.io/artifactory" }
+    maven { url "https://oss.sonatype.org/content/repositories/snapshots" }
 }
 
 dependencyManagement {
@@ -41,12 +42,18 @@ dependencyManagement {
 }
 
 dependencies {
+    annotationProcessor "io.micronaut:inject-java"
     compile "io.micronaut:http-server-netty"
     compile "io.micronaut:inject"
+    compile "io.micronaut:runtime"
+    compile "io.micronaut:http-client"
     compileOnly "io.micronaut:inject-java"
     runtime "ch.qos.logback:logback-classic:1.2.3"
+    testCompile "junit:junit:4.12"
+    testCompile "io.micronaut:inject-java"
+
 //tag::securitydependency[]
-    compile "io.micronaut:security-session:$micronautVersion"
+    compile "io.micronaut:security-session"
 //end::securitydependency[]
 //tag::velocity[]
     compile "org.apache.velocity:velocity-engine-core:2.0"
@@ -62,10 +69,15 @@ dependencies {
     compile "org.codehaus.groovy:groovy-all:2.4.15"
     testCompile "org.spockframework:spock-core:1.1-groovy-2.4"
 //end::spock[]
-//tag::yaml[]
-    runtime 'org.yaml:snakeyaml:1.19'
-//end::yaml[]
 }
+
+shadowJar {
+    mergeServiceFiles()
+}
+
+mainClassName = "example.Application"
+compileJava.options.compilerArgs += '-parameters'
+compileTestJava.options.compilerArgs += '-parameters'
 
 //tag::webdriverBinaries[]
 webdriverBinaries {

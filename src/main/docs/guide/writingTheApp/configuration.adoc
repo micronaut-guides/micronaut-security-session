@@ -12,16 +12,3 @@ include::{sourceDir}/src/main/resources/application.yml[]
 <4> Enable session based authentication
 <5> After the user logs in, redirect him to the Home page.
 <6> If the login fails, redirect him to /login/authFailed
-
-To use Yaml, in your configuration file add the yaml dependency to `build.gradle`.
-
-[source,groovy]
-.build.gradle
-----
-dependencies {
-...
-..
-.
-include::{sourceDir}/build.gradle[tag=yaml]
-}
-----

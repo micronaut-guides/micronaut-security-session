@@ -1,4 +1,4 @@
-package demo
+package example.micronaut
 
 import geb.spock.GebSpec
 import io.micronaut.context.ApplicationContext

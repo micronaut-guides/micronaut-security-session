@@ -1,6 +1,6 @@
-package demo.controllers;
+package example.micronaut.controllers;
 
-import demo.services.VelocityService;
+import example.micronaut.services.VelocityService;
 import io.micronaut.http.MediaType;
 import io.micronaut.http.annotation.Controller;
 import io.micronaut.http.annotation.Get;

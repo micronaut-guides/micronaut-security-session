@@ -1,4 +1,8 @@
-sudo: false
+dist: trusty
+addons:
+  chrome: stable
+sudo: required
+language: java
 cache:
   directories:
   - $HOME/.gradle

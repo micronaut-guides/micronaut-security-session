@@ -1,4 +1,4 @@
-package demo.services;
+package example.micronaut.services;
 
 import org.apache.velocity.VelocityContext;
 import org.apache.velocity.app.VelocityEngine;
