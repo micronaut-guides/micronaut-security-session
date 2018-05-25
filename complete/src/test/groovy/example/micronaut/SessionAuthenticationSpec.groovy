@@ -4,8 +4,11 @@ import geb.spock.GebSpec
 import io.micronaut.context.ApplicationContext
 import io.micronaut.runtime.server.EmbeddedServer
 import spock.lang.AutoCleanup
+import spock.lang.IgnoreIf
 import spock.lang.Shared
 
+@IgnoreIf( { System.getenv('TRAVIS') as boolean } )
+//tag::clazz[]
 class SessionAuthenticationSpec extends GebSpec {
 
     @Shared
@@ -69,3 +72,4 @@ class SessionAuthenticationSpec extends GebSpec {
         homePage.username() == null
     }
 }
+//end::clazz[]
