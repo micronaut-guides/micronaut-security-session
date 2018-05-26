@@ -1,1 +1,5 @@
-In this guide you are going to...
+In this guide you are going to write a Micronaut app with session based authentication.
+
+The following sequence illustrates the authentication flow:
+
+image::session_based_auth.svg[]
