@@ -7,8 +7,8 @@ include::{sourceDir}/src/main/resources/application.yml[]
 ----
 
 <1> Enable Micronaut's security capabilities
-<2> Expose /login endpoint
-<3> Expose /logout endpoint
+<2> Expose `/login` endpoint
+<3> Expose `/logout` endpoint
 <4> Enable session based authentication
 <5> After the user logs in, redirect him to the Home page.
 <6> If the login fails, redirect him to /login/authFailed
