@@ -66,7 +66,7 @@ dependencies {
     testCompile "org.seleniumhq.selenium:selenium-api:3.6.0"
 //end::geb[]
 //tag::spock[]
-    compile "org.codehaus.groovy:groovy-all:2.4.15"
+    testCompile "org.codehaus.groovy:groovy-all:2.4.15"
     testCompile "org.spockframework:spock-core:1.1-groovy-2.4"
 //end::spock[]
 }
