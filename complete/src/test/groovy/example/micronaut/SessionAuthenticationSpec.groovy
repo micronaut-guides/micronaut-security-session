@@ -7,7 +7,6 @@ import spock.lang.AutoCleanup
 import spock.lang.IgnoreIf
 import spock.lang.Shared
 
-@IgnoreIf( { System.getenv('TRAVIS') as boolean } )
 //tag::clazz[]
 class SessionAuthenticationSpec extends GebSpec {
 
