@@ -7,6 +7,7 @@ import spock.lang.AutoCleanup
 import spock.lang.IgnoreIf
 import spock.lang.Shared
 
+@IgnoreIf({ !sys['geb.env'] })
 //tag::clazz[]
 class SessionAuthenticationSpec extends GebSpec {
 
