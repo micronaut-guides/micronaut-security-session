@@ -3,9 +3,10 @@ set -e
 
 export EXIT_STATUS=0
 
+./gradlew --stop
 ./gradlew clean
-./gradlew -Dgeb.env=chromeHeadless complete:test  || EXIT_STATUS=$?
-
+./gradlew -Dgeb.env=chromeHeadless complete:test --no-daemon || EXIT_STATUS=$?
+echo "Exit status after test $EXIT_STATUS"
 if [[ $EXIT_STATUS -ne 0 ]]; then
 
   git clone https://${GH_TOKEN}@github.com/micronaut-guides/micronaut-security-session.git -b gh-pages gh-pages --single-branch > /dev/null
