@@ -94,3 +94,13 @@ tasks.withType(Test) {
     systemProperty "webdriver.gecko.driver", System.getProperty('webdriver.gecko.driver')
 }
 //end::taskWithTypeTest[]
+
+
+test {
+    testLogging {
+        exceptionFormat = 'full'
+        events 'failed', 'standardOut', 'standardError'
+    }
+
+    beforeTest { descriptor -> logger.quiet " -- $descriptor" }
+}
