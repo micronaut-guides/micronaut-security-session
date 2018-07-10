@@ -1,1 +1,1 @@
-include::{commondir}/common-testApp.adoc[]
+include::{commondir}/common-testAppGeb.adoc[]
