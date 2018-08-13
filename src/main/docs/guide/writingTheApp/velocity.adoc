@@ -7,7 +7,7 @@ ____
 Velocity is a Java-based template engine. It permits anyone to use a simple yet powerful template language to reference objects defined in Java code.
 ____
 
-Add a dependency to velocity:
+Add a dependency to https://docs.micronaut.io/latest/guide/index.html#views[Server Side View Rendering Module] and to Velocity:
 
 [source,groovy]
 .build.gradle
@@ -20,27 +20,16 @@ include::{sourceDir}/build.gradle[tag=velocity]
 }
 ----
 
-Create two velocity templates:
+Create two velocity templates in `src/main/resources/views`:
 
 [source,groovy]
-.src/main/resources/templates/home.vm
+.src/main/resources/views/home.vm
 ----
-include::{sourceDir}/src/main/resources/templates/home.vm[]
+include::{sourceDir}/src/main/resources/views/home.vm[]
 ----
 
 [source,groovy]
-.src/main/resources/templates/auth.vm
+.src/main/resources/views/auth.vm
 ----
-include::{sourceDir}/src/main/resources/templates/auth.vm[]
+include::{sourceDir}/src/main/resources/views/auth.vm[]
 ----
-
-To render those templates, create `VelocityService.java`
-
-[source,java]
-.src/main/java/example/micronaut/services/VelocityService.java
-----
-include::{sourceDir}/src/main/java/example/micronaut/services/VelocityService.java[]
-----
-
-<1> To create a Sigleton bean use the `javax.inject.Singleton` annotation.
-<2> Use the `javax.annotation.PostConstruct` annotation to trigger the method execution after dependency injection is done. Typically to perform any initialization.

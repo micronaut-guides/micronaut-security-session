@@ -58,9 +58,6 @@ dependencies {
 //tag::securitydependency[]
     compile "io.micronaut:security-session"
 //end::securitydependency[]
-//tag::velocity[]
-    compile "org.apache.velocity:velocity-engine-core:2.0"
-//end::velocity[]
 //tag::geb[]
     testCompile "org.gebish:geb-spock:2.1"
     testRuntime "org.seleniumhq.selenium:selenium-chrome-driver:3.6.0"
@@ -72,6 +69,11 @@ dependencies {
     testCompile "org.codehaus.groovy:groovy-all:2.5.0"
     testCompile "org.spockframework:spock-core:1.1-groovy-2.4"
 //end::spock[]
+
+    //tag::velocity[]
+    compile "io.micronaut:views"
+    runtime "org.apache.velocity:velocity-engine-core:2.0"
+    //end::velocity[]
 }
 
 shadowJar {
