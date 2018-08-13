@@ -7,7 +7,7 @@ ____
 Velocity is a Java-based template engine. It permits anyone to use a simple yet powerful template language to reference objects defined in Java code.
 ____
 
-Add a dependency to https://docs.micronaut.io/latest/guide/index.html#views[Server Side View Rendering Module] and to Velocity:
+Add a dependency to Micronaut's https://docs.micronaut.io/latest/guide/index.html#views[Server Side View Rendering Module] and to Velocity:
 
 [source,groovy]
 .build.gradle
