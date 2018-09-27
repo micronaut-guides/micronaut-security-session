@@ -22,13 +22,13 @@ include::{sourceDir}/build.gradle[tag=velocity]
 
 Create two velocity templates in `src/main/resources/views`:
 
-[source,groovy]
+[source,html]
 .src/main/resources/views/home.vm
 ----
 include::{sourceDir}/src/main/resources/views/home.vm[]
 ----
 
-[source,groovy]
+[source,html]
 .src/main/resources/views/auth.vm
 ----
 include::{sourceDir}/src/main/resources/views/auth.vm[]
