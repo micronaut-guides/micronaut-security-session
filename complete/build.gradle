@@ -80,6 +80,8 @@ shadowJar {
     mergeServiceFiles()
 }
 
+run.jvmArgs('-noverify', '-XX:TieredStopAtLevel=1')
+
 mainClassName = "example.Application"
 compileJava.options.compilerArgs += '-parameters'
 compileTestJava.options.compilerArgs += '-parameters'
