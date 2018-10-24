@@ -8,5 +8,5 @@ micronaut:
         enabled: true # <3>
     session:
       enabled: true # <4>
-      loginSuccessTargetUrl: / # <5>
-      loginFailureTargetUrl: /login/authFailed #<6>
+      login-success-target-url: / # <5>
+      login-failure-target-url: /login/authFailed #<6>

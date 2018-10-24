@@ -47,6 +47,12 @@ class SessionAuthenticationSpec extends GebSpec {
         and: 'and error is displayed'
         loginPage.hasErrors()
 
+        when: 'fill the form with wrong credentials'
+        loginPage.login('sherlock', 'foo')
+
+        then: 'we get redirected to the home page'
+        at LoginFailedPage
+
         when: 'fill the form with valid credentials'
         loginPage.login('sherlock', 'password')
 
