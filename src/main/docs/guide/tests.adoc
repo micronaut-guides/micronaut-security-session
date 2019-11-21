@@ -2,7 +2,7 @@ include::{commondir}/common-spockinjavaapp.adoc[]
 
 include::{commondir}/common-geb.adoc[]
 
-Create two pages:
+Create three pages:
 
 [source,groovy]
 .src/test/groovy/example/micronaut/HomePage.groovy
@@ -16,6 +16,12 @@ include::{sourceDir}/src/test/groovy/example/micronaut/HomePage.groovy[]
 include::{sourceDir}/src/test/groovy/example/micronaut/LoginPage.groovy[]
 ----
 
+[source,groovy]
+.src/test/groovy/example/micronaut/LoginFailedPage.groovy
+----
+include::{sourceDir}/src/test/groovy/example/micronaut/LoginFailedPage.groovy[]
+----
+
 Create a test which verifies the user authentication flow.
 
 [source,groovy]
@@ -23,3 +29,5 @@ Create a test which verifies the user authentication flow.
 ----
 include::{sourceDir}/src/test/groovy/example/micronaut/SessionAuthenticationSpec.groovy[tag=clazz]
 ----
+<1> Annotate the class with `@MicronautTest` to let Micronaut starts the embedded server and inject the beans. More info: https://micronaut-projects.github.io/micronaut-test/latest/guide/index.html[https://micronaut-projects.github.io/micronaut-test/latest/guide/index.html].
+<2> Inject the `EmbeddedServer` bean.

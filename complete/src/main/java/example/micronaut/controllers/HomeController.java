@@ -2,7 +2,6 @@ package example.micronaut.controllers;
 
 import io.micronaut.http.annotation.Controller;
 import io.micronaut.http.annotation.Get;
-import io.micronaut.http.annotation.Produces;
 import io.micronaut.security.annotation.Secured;
 import io.micronaut.views.View;
 
@@ -15,12 +14,12 @@ import java.util.Map;
 @Controller("/")  // <2>
 public class HomeController {
 
-    @Get("/")  // <3>
+    @Get("/") // <3>
     @View("home") // <4>
-    Map<String, Object> index(@Nullable Principal principal) {  // <5>
+    Map<String, Object> index(@Nullable Principal principal) { // <5>
         Map<String, Object> data = new HashMap<>();
-        data.put("loggedIn", principal!=null);
-        if (principal!=null) {
+        data.put("loggedIn", principal != null);
+        if (principal != null) {
             data.put("username", principal.getName());
         }
         return data;

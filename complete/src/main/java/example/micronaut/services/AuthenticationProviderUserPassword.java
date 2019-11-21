@@ -12,11 +12,11 @@ import javax.inject.Singleton;
 import java.util.ArrayList;
 
 @Singleton // <1>
-public class AuthenticationProviderUserPassword implements AuthenticationProvider  { // <2>
+public class AuthenticationProviderUserPassword implements AuthenticationProvider { // <2>
     @Override
     public Publisher<AuthenticationResponse> authenticate(AuthenticationRequest authenticationRequest) {
-        if ( authenticationRequest.getIdentity().equals("sherlock") &&
-                authenticationRequest.getSecret().equals("password") ) {
+        if (authenticationRequest.getIdentity().equals("sherlock") &&
+                authenticationRequest.getSecret().equals("password")) {
             UserDetails userDetails = new UserDetails((String) authenticationRequest.getIdentity(), new ArrayList<>());
             return Flowable.just(userDetails);
         }
