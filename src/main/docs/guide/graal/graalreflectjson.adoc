@@ -1,0 +1,75 @@
+After you run the native image, try to open in your browser http://localhost:8080
+
+We expected to retrieve the home page of our app however we get an exception:
+
+[source,bash]
+----
+$ ./micronautguide
+13:19:04.792 [main] INFO  io.micronaut.runtime.Micronaut - Startup completed in 18ms. Server Running: http://localhost:8080
+13:19:08.712 [pool-2-thread-2] ERROR org.apache.velocity - The specified class for ResourceManager (org.apache.velocity.runtime.resource.ResourceManagerImpl) does not exist or is not accessible to the current classloader.
+13:19:08.712 [pool-2-thread-2] ERROR org.apache.velocity - Could not auto-initialize Velocity
+org.apache.velocity.exception.VelocityException: The specified class for ResourceManager (org.apache.velocity.runtime.resource.ResourceManagerImpl) does not exist or is not accessible to the current classloader.
+	....
+----
+
+We need to provide a reflection configuration file for https://velocity.apache.org[Velocity].
+
+Fortunately, GraalVM native image module provides a tracing agent to simplify GraalVM Native Image configuration.
+
+Create folder to save the configuration files
+
+[source, bash]
+----
+$ mkdir config-files
+----
+
+Stop the native image and run the app with the tracing agent.
+
+[source, bash]
+----
+$ java -jar  -agentlib:native-image-agent=config-output-dir=config-files build/libs/complete-0.1-all.jar
+$ 13:24:58.938 [main] INFO  io.micronaut.runtime.Micronaut - Startup completed in 1185ms. Server Running: http://localhost:8080
+----
+
+Once the app starts, navigate to the home page. It should render without errors.
+
+Stop the app and inspect the folder `config-files`. Several files have been created:
+
+[source, bash]
+----
+jni-config.json
+proxy-config.json
+reflect-config.json
+resource-config.json
+----
+
+Copy entries from the file `reflect-config.json`, which match the package `org.apache.velocity`, to a new file named `src/main/graal/reflect.json`.
+
+The file will look like:
+
+[source, json]
+.src/main/graal/reflect.json
+----
+include::{sourcedir}/src/main/graal/reflect.json[]
+----
+
+TIP: `src/main/graal/reflect.json` will be automatically picked up by Micronaut Graal annotation processor.
+
+Generate the native image again:
+
+[source,bash]
+----
+$ ./gradlew clean
+$ ./gradlew assemble
+$ native-image --no-server -cp build/libs/complete-0.1-all.jar
+----
+
+Run the native image:
+
+[source,bash]
+----
+$ ./micronautguide
+13:38:43.134 [main] INFO  io.micronaut.runtime.Micronaut - Startup completed in 19ms. Server Running: http://localhost:8080
+----
+
+You app is running as a GraalVM native image. Open your browser and you should be able to authenticate successfully.

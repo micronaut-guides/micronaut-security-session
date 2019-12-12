@@ -1,0 +1,5 @@
+include::{commondir}/common-graal-install.adoc[]
+
+include::{commondir}/common-graal-nativeimage.adoc[]
+
+Navigate to localhost:8080 and you will be able to authenticate.
