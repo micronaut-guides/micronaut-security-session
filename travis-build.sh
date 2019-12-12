@@ -5,7 +5,7 @@ export EXIT_STATUS=0
 
 ./gradlew --stop
 ./gradlew clean
-./gradlew -Dgeb.env=chromeHeadless complete:check --no-daemon || EXIT_STATUS=$?
+./gradlew complete:check --no-daemon || EXIT_STATUS=$?
 echo "Exit status after test $EXIT_STATUS"
 if [[ $EXIT_STATUS -ne 0 ]]; then
 
