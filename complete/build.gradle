@@ -41,7 +41,7 @@ dependencies {
     //end::securitydependency[]
 
     //tag::velocity[]
-    implementation "io.micronaut:micronaut-views"
+    implementation "io.micronaut:micronaut-views-velocity"
     runtime "org.apache.velocity:velocity-engine-core:2.0"
     //end::velocity[]
 
