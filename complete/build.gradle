@@ -42,13 +42,13 @@ dependencies {
     //end::velocity[]
 
     //tag::geb[]
-    testImplementation "org.gebish:geb-spock:$gebVersion"
+    testImplementation "org.gebish:geb-spock:3.2"
     testImplementation "org.seleniumhq.selenium:htmlunit-driver:2.35.1"
     testRuntime 'net.sourceforge.htmlunit:htmlunit:2.35.0'
-    testRuntime "org.seleniumhq.selenium:selenium-chrome-driver:$seleniumVersion"
-    testRuntime "org.seleniumhq.selenium:selenium-firefox-driver:$seleniumVersion"
-    testImplementation "org.seleniumhq.selenium:selenium-support:$seleniumVersion"
-    testImplementation "org.seleniumhq.selenium:selenium-api:$seleniumVersion"
+    testRuntime "org.seleniumhq.selenium:selenium-chrome-driver:3.141.59"
+    testRuntime "org.seleniumhq.selenium:selenium-firefox-driver:3.141.59"
+    testImplementation "org.seleniumhq.selenium:selenium-support:3.141.59"
+    testImplementation "org.seleniumhq.selenium:selenium-api:3.141.59"
     //end::geb[]
 
     runtimeOnly "ch.qos.logback:logback-classic:1.2.3"
@@ -93,10 +93,10 @@ run.jvmArgs('-noverify', '-XX:TieredStopAtLevel=1', '-Dcom.sun.management.jmxrem
 //tag::webdriverBinaries[]
 webdriverBinaries {
     chromedriver {
-        version = chromeDriverVersion
+        version = '77.0.3865.40'
     }
     geckodriver {
-        version = geckoDriverVersion
+        version = '0.26.0'
     }
 }
 //end::webdriverBinaries[]
