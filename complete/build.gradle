@@ -11,6 +11,10 @@ plugins {
 version "0.1"
 group "example"
 
+ext {
+    drivers = ['chrome','chromeHeadless', 'firefox', 'firefoxHeadless', 'htmlUnit']
+
+}
 repositories {
     mavenCentral()
     jcenter()
@@ -108,5 +112,13 @@ tasks.withType(Test) {
     systemProperty "webdriver.gecko.driver", System.getProperty('webdriver.gecko.driver')
 }
 //end::taskWithTypeTest[]
+
+
+drivers.each { driver ->
+    task "${driver}Test"(type: Test) {
+        group JavaBasePlugin.VERIFICATION_GROUP
+        systemProperty "geb.env", driver
+    }
+}
 
 apply from: "${rootProject.projectDir}/gradle/testVerbose.gradle"
