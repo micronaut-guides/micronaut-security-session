@@ -3,11 +3,9 @@ package example.micronaut
 import geb.spock.GebSpec
 import io.micronaut.runtime.server.EmbeddedServer
 import io.micronaut.test.annotation.MicronautTest
-import spock.lang.IgnoreIf
 
 import javax.inject.Inject
 
-@IgnoreIf({ !sys['geb.env'] })
 //tag::clazz[]
 @MicronautTest // <1>
 class SessionAuthenticationSpec extends GebSpec {
