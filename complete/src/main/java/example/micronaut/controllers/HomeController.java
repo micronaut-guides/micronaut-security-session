@@ -3,6 +3,7 @@ package example.micronaut.controllers;
 import io.micronaut.http.annotation.Controller;
 import io.micronaut.http.annotation.Get;
 import io.micronaut.security.annotation.Secured;
+import io.micronaut.security.rules.SecurityRule;
 import io.micronaut.views.View;
 
 import javax.annotation.Nullable;
@@ -10,7 +11,7 @@ import java.security.Principal;
 import java.util.HashMap;
 import java.util.Map;
 
-@Secured("isAnonymous()") // <1>
+@Secured(SecurityRule.IS_ANONYMOUS) // <1>
 @Controller("/")  // <2>
 public class HomeController {
 
