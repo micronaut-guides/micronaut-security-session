@@ -1,12 +1,10 @@
 micronaut:
   security:
-    enabled: true # <1>
     endpoints:
       login:
-        enabled: true # <2>
+        enabled: true # <1>
       logout:
-        enabled: true # <3>
+        enabled: true # <2>
     session:
-      enabled: true # <4>
-      login-success-target-url: / # <5>
-      login-failure-target-url: /login/authFailed #<6>
+      login-success-target-url: / # <3>
+      login-failure-target-url: /login/authFailed #<4>

@@ -6,9 +6,7 @@ Create the next configuration file:
 include::{sourceDir}/src/main/resources/application.yml[]
 ----
 
-<1> Enable Micronaut's security capabilities
-<2> Expose `/login` endpoint
-<3> Expose `/logout` endpoint
-<4> Enable session based authentication
-<5> After the user logs in, redirect them to the Home page.
-<6> If the login fails, redirect them to /login/authFailed
+<1> Expose `/login` endpoint
+<2> Expose `/logout` endpoint
+<3> After the user logs in, redirect them to the Home page.
+<4> If the login fails, redirect them to /login/authFailed
