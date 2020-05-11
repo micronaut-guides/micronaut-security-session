@@ -11,7 +11,6 @@ writingTheApp:
   controller: Controllers
 tests:
   title: Tests
-  webdriverBinaries: WebDriver Binaries
 testingTheApp:
   title: Testing the Application
 runningTheApp:
