@@ -1,43 +1,54 @@
 plugins {
     id "net.ltgt.apt-eclipse" version "0.21"
+    id "groovy"
     id "com.github.johnrengelman.shadow" version "5.2.0"
     id "application"
-    id "groovy"
 }
 
 version "0.1"
-group "example"
+group "example.micronaut"
+
 
 repositories {
-    mavenCentral()
     jcenter()
+    maven { url "https://oss.jfrog.org/oss-snapshot-local" }
 }
 
 configurations {
     // for dependencies that are needed for development only
     developmentOnly
+
+    all {
+        resolutionStrategy {
+            force 'io.micronaut:micronaut-security-annotations:2.0.0.BUILD-SNAPSHOT'
+            force 'io.micronaut:micronaut-security:2.0.0.BUILD-SNAPSHOT'
+            force 'io.micronaut:micronaut-security-session:2.0.0.BUILD-SNAPSHOT'
+        }
+    }
 }
 
 dependencies {
-    annotationProcessor platform("io.micronaut:micronaut-bom:$micronautVersion")
-    annotationProcessor "io.micronaut:micronaut-inject-java"
-    annotationProcessor "io.micronaut:micronaut-validation"
+    annotationProcessor(enforcedPlatform("io.micronaut:micronaut-bom:$micronautVersion"))
+    annotationProcessor("io.micronaut:micronaut-inject-java")
+    annotationProcessor("io.micronaut:micronaut-validation")
+
+    implementation(enforcedPlatform("io.micronaut:micronaut-bom:$micronautVersion"))
+    implementation("io.micronaut:micronaut-inject")
+    implementation("io.micronaut:micronaut-validation")
+    implementation("io.micronaut:micronaut-runtime")
+    implementation("io.micronaut:micronaut-http-server-netty")
+    implementation("io.micronaut:micronaut-http-client")
+
     //tag::micronaut-graal[]
-    annotationProcessor "io.micronaut:micronaut-graal"
+    annotationProcessor("io.micronaut:micronaut-graal")
     //end::micronaut-graal[]
     //tag::svm[]
-    compileOnly "org.graalvm.nativeimage:svm:19.3.0"
+    compileOnly("org.graalvm.nativeimage:svm")
     //end::svm[]
-    implementation platform("io.micronaut:micronaut-bom:$micronautVersion")
-    implementation "io.micronaut:micronaut-inject"
-    implementation "io.micronaut:micronaut-validation"
-    implementation "io.micronaut:micronaut-runtime"
-    implementation "io.micronaut:micronaut-http-server-netty"
-    implementation "io.micronaut:micronaut-http-client"
 
     //tag::securitydependency[]
-    annotationProcessor "io.micronaut:micronaut-security-annotations:2.0.0.M2"
-    implementation "io.micronaut:micronaut-security-session"
+    annotationProcessor "io.micronaut:micronaut-security-annotations:2.0.0.BUILD-SNAPSHOT"
+    implementation "io.micronaut:micronaut-security-session:2.0.0.BUILD-SNAPSHOT"
     //end::securitydependency[]
 
     //tag::velocity[]
@@ -53,47 +64,47 @@ dependencies {
     testImplementation "org.seleniumhq.selenium:selenium-api:3.141.59"
     //end::geb[]
 
-    runtimeOnly "ch.qos.logback:logback-classic:1.2.3"
-    //tag::spock[]
+    runtimeOnly("ch.qos.logback:logback-classic:1.2.3")
+    testImplementation(enforcedPlatform("io.micronaut:micronaut-bom:$micronautVersion"))
+    testImplementation("io.micronaut:micronaut-inject-groovy")
     testImplementation("org.spockframework:spock-core") {
         exclude group: "org.codehaus.groovy", module: "groovy-all"
     }
-    testImplementation "io.micronaut:micronaut-inject-groovy"
-    testImplementation "io.micronaut.test:micronaut-test-spock"
-    //end::spock[]
-
-    testAnnotationProcessor platform("io.micronaut:micronaut-bom:$micronautVersion")
-    testAnnotationProcessor "io.micronaut:micronaut-inject-java"
-    testImplementation platform("io.micronaut:micronaut-bom:$micronautVersion")
-    testImplementation "org.junit.jupiter:junit-jupiter-api"
-    testImplementation "io.micronaut.test:micronaut-test-junit5"
-    testRuntimeOnly "org.junit.jupiter:junit-jupiter-engine"
-    testRuntimeOnly "org.junit.vintage:junit-vintage-engine:5.5.0"
+    testImplementation("io.micronaut.test:micronaut-test-spock")
 }
 
 test.classpath += configurations.developmentOnly
 
 mainClassName = "example.micronaut.Application"
+
 // use JUnit 5 platform
 test {
     useJUnitPlatform()
 }
+
+java {
+    sourceCompatibility = JavaVersion.toVersion('1.8')
+    targetCompatibility = JavaVersion.toVersion('1.8')
+}
+
 tasks.withType(JavaCompile){
     options.encoding = "UTF-8"
-    options.compilerArgs.add('-parameters')
+    options.compilerArgs.addAll([
+        '-parameters',
+        // enables incremental compilation
+        '-Amicronaut.processing.incremental=true',
+        '-Amicronaut.processing.annotations=example.micronaut.*'
+    ])
 }
 
 shadowJar {
     mergeServiceFiles()
 }
 
-run.classpath += configurations.developmentOnly
-run.jvmArgs('-noverify', '-XX:TieredStopAtLevel=1', '-Dcom.sun.management.jmxremote')
-
-//tag::taskWithTypeTest[]
-tasks.withType(Test) {
-    systemProperty "geb.env", System.getProperty('geb.env')
+tasks.withType(JavaExec) {
+    classpath += configurations.developmentOnly
+    jvmArgs('-XX:TieredStopAtLevel=1', '-Dcom.sun.management.jmxremote')
 }
-//end::taskWithTypeTest[]
 
-apply from: "${rootProject.projectDir}/gradle/testVerbose.gradle"
+
+

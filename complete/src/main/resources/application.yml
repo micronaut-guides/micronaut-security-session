@@ -1,10 +1,8 @@
 micronaut:
+  application:
+    name: complete
   security:
-    endpoints:
-      login:
-        enabled: true # <1>
-      logout:
-        enabled: true # <2>
-    session:
-      login-success-target-url: / # <3>
-      login-failure-target-url: /login/authFailed #<4>
+    authentication: session # <1>
+    redirect:
+      login-success: / # <2>
+      login-failure: /login/authFailed #<3>
