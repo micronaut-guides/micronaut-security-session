@@ -3,7 +3,7 @@ Create the next configuration file:
 [source,yaml]
 .src/main/resources/application.yaml
 ----
-include::{sourceDir}/src/main/resources/application.yml[]
+include::{sourceDir}/src/main/resources/application.yml[tag=security]
 ----
 
 <1> Set `micronaut.security.authentication` to `session`. It sets the necessary beans for login and logout using session based authentication.
